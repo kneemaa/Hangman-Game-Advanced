@@ -1,6 +1,8 @@
 div.title {
-	content:url(../images/sesame-street-sign.png);
 	align-content: center;
+	margin: 0 auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 body {
 	background-color: grey;
@@ -12,7 +14,6 @@ img {
 	margin-left: 75px;
 }
 .signage {
-	background-image: url(../images/sesamesign.png);
 }
 .wrapper {
 	width: 507px;
