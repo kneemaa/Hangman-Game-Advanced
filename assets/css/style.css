@@ -1,0 +1,42 @@
+div.title {
+	content:url(../images/sesame-street-sign.png);
+	align-content: center;
+}
+body {
+	background-color: grey;
+}
+img {
+	width: 512px;
+	align-content: center;
+	display: block;
+	margin-left: 75px;
+}
+.signage {
+	background-image: url(../images/sesamesign.png);
+}
+.wrapper {
+	width: 507px;
+	height: 319px;
+	margin-left: 50px;
+}
+#characterLines, #guessesRemaining, #guessedLetters, #winLossPrompt, #wordOfTheDay {
+	color: white;
+	font-size: 22px;
+	padding: 10px 0px 10px 0px;
+	z-index: 999;
+	max-width: 420px;
+}
+#winLossPrompt, #wordOfTheDay {
+	padding: 0px;
+	font-size: 40px;
+}
+#img-rounded{
+	margin-left: 100px;
+}
+.textwrapper {
+	margin-left: 40px;
+	margin-top: 50px;
+}
+.spacer {
+	width: 10px;
+}
