@@ -1,5 +1,24 @@
 $(document).ready(function(){
-	var wordList = ["elmo","grover","big bird","mr snuffleupagus","count von count","kermit the frog","bert","ernie","cookie monster","oscar the grouch"];
+	var sesameStreet = [
+		"elmo",
+		"grover",
+		"big bird",
+		"mr snuffleupagus",
+		"count von count",
+		"kermit the frog",
+		"bert",
+		"ernie",
+		"cookie monster",
+		"oscar the grouch"];
+	var programmingLanguages = [
+		"python",
+		"swift",
+		"javascript",
+		"react",
+		"nodejs",
+		"golang",
+		"perl"]
+	var wordList = [];
 	var userGuessPrint = "";
 	var letterToPrint = "";
 	var status = "";
@@ -9,33 +28,48 @@ $(document).ready(function(){
 	var guessedLettersElement = document.getElementById("guessedLetters");
 	var winLossPromptElement = document.getElementById("winLossPrompt");
 	var wordOfTheDayElement = document.getElementById("wordOfTheDay");
-	var audio = new Audio('./assets/audio/sesameStreetThemeSong.mp3');
-	var imageLinks = {
-		"elmo": "elmo.jpg",
-		"grover": "grover.jpg",
-		"big bird": "bigBird.jpg",
-		"mr snuffleupagus": "mrSnuffleupagus.jpg",
-		"count von count": "countVonCount.png",
-		"kermit the frog": "kermitTheFrog.jpg",
-		"bert": "bert.png",
-		"ernie": "ernie.png",
-		"cookie monster": "cookieMonster.jpg",
-		"oscar the grouch": "oscarTheGrout.jpg"};
+	var imageLinks = {};	
+	var whichList = 0;
 
+	whichList = Math.floor(Math.random() * 2);
+	
+	if (whichList === 0) {
+		wordList = sesameStreet;
+		$("div.title").attr("style","content: url(./assets/images/sesame-street-sign.png)");
+		$(".signage").attr("style","background-image: url(./assets/images/sesamesign.png)");
+		var audioWin = new Audio('./assets/audio/sesameStreetThemeSong.mp3');
+		var audioLoss = new Audio('./assets/audio/sesameFail.mp3');
+	} else if (whichList === 1) {
+		wordList = programmingLanguages;
+		$("div.title").attr("style","content: url(./assets/images/programming-languages.png)");
+		$(".signage").attr("style","background-image: url(./assets/images/monitor.png)");
+		$("#characterLines, #guessesRemaining, #guessedLetters, #winLossPrompt, #wordOfTheDay").attr("style","color: black");
+		var audioWin = new Audio('./assets/audio/programmingWin.mp3');
+		var audioLoss = new Audio('./assets/audio/programmingFail.mp3');
+	} else {};
 
+	for (i = 0; i < wordList.length; i++) {
+		var imageURL = wordList[i].toString();
+		imageURL = imageURL.replace(/\s+/g, '') +".png";
+		imageLinks[wordList[i]] = imageURL.toString();
+	};
 
 	window.onclick = function () {
 		var blankHint = "";
 		var userGuessList = [];
 		var remainingGuesses = 6;
-		var listPosition = Math.floor((Math.random() * wordList.length));
+		var listPosition = Math.floor(Math.random() * wordList.length);
 		var selectedWord = wordList[listPosition];
 		var alphabet = "abcdefghijklmnopqrstuvwxyz";
+		var result = "";
+
 		winLossPromptElement.textContent = " ";
 		wordOfTheDayElement.textContent = " ";
-		audio.pause();
-		audio.currentTime = 0;
-		var result = "";
+		audioWin.pause();
+		audioLoss.pause();
+		audioWin.currentTime = 0;
+		audioLoss.pause();
+		
 		function printBlanks(){
 			for (i = 0; i < selectedWord.length; i++) {
 				letterToPrint = selectedWord.charAt(i);
@@ -104,16 +138,15 @@ $(document).ready(function(){
 					wordOfTheDayElement.textContent = "That's " + selectedWord + "!";
 				}
 			};
-			console.log(selectedWord.length);
-			console.log(blankHint.length);
 			
 			if (remainingGuesses > 0 && selectedWord === result) {
 				gameState(" "," "," ");
 				winLossDisplay("win");
-				audio.play();
+				audioWin.play();
 			} else if (remainingGuesses <= 0){
 				gameState(" "," "," ");
 				winLossDisplay("loss");
+				audioLoss.play();
 			} else {
 			}
 		}
